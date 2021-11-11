@@ -1,0 +1,257 @@
+---
+title: "CaliforniaCoasters2021"
+author: "Austin Wright"
+date: "11/10/2021"
+output: learnr::tutorial
+runtime: shiny_prerendered
+---
+
+```{r setup, include=FALSE}
+library(learnr)
+library(tidyverse)
+library(ggplot2)
+library(plotly)
+library(htmlwidgets)
+library(plyr)
+library(reshape2)
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+
+## Topic 1
+
+### Exercise 
+
+*Load Data*
+
+Load The Data Code:
+
+```{r Load-df}
+rawDataFrame <- "./data/ca_data.csv"
+currentDataFrame <- read.csv(rawDataFrame)
+currentDataFrame
+```
+
+```{r Set Enviromental Vars}
+#currentDataFrame <-na.omit(currentDataFrame)
+
+
+```
+
+## Data Dictionary
+| Term                           | Type                   | description                                                                                                                             |
+|:-------------------------------|:-----------------------|:----------------------------------------------------------------------------------------------------------------------------------------|
+| Six Flags                      | Cooperate Chain        | The largest US themepark operator and own two parks in California (Six Flags Magic Mountain, Six Flags Discovery Kingdom)               |                                     
+| Cedar Fair                     | Cooperate Chain        | Operate three regional parks in California (California's Great America, Knott's Berry Farm, Gilroy Gardens)                             |
+| Sea World                      | Cooperate Chain        | Owner of Sea World San Diego                                                                                                            |
+| Disney                         | Cooperate Chain        | Owner of California Adventure and Disneyland                                                                                            |
+| Universal Studios              | Cooperate Chain        | Owner of Universal Studios Hollywood                                                                                                    |
+| Merlin Entertainment           | Cooperate Chain        | Owner of Legoland California                                                                                                            |
+| Wood                           | Roller Coaster Type    | A coaster which is supported by wood a structure and has wood track not typically capable of inversions                                 |
+| Steel                          | Roller Coaster Type    | A coaster constructed out of steel supports and steel track typically capable of inversions                                             |
+| Inversion                      | Coaster Element        | A section of coaster track where the roller coaster riders will be turned upside down. Elements like vertical loops, corkscre           |
+| Great Coasters International   | Manufacturer           | Specialize in only wooden coasters which typically have banked turned in a "twister" style track layout                                 |
+| Bollinger & Mabillard          | Manufacturer           | Builder of coasters for their high reliability, smoothness and high inversion count, B&M has been one of the most popular ma            |
+| Intamin                        | Manufacturer           | Known as industry leader with many coasters with record breaking stats such as height or speed and technological innovatio              |
+| Premier Rides                  | Manufacturer           | An expert in launch coasters and developed the first coaster to use a LIM proposition mechanism. Premier only manufactures sel coasters |
+| Mack Rides                     | Manufacturer           | Manufacture in preminum steel family lauch coasters and spinning coasters. Mack only manufactures steel coasters                        |
+| Schwarzkopf                    | Manufacturer           | Defunct manufacture that was an industry leader in the late 70s to late 80s in steel looping coasters                                   |
+| Arrow Development              | Manufacturer           | Defunct manufacture that was an industry leader from the 1950s till their bankruptcy in 2002 the created the first tu                   |
+| E&F Miller                     | Manufacturer           | Defunct manufacture of small scale steel family and kid friendly coasters                                                               |
+| Wisdom Rides                   | Manufacturer           | Number of previous bookings that were cancelled by the customer prior to the current booking                                            |
+| Wiegand                        | Manufacturer           | Leader of creating Alpine style coasters for ski resorts                                                                                |
+| Zamperla                       | Manufacturer           | Large player of designing non-coaster ride like flatrides have a recent history of building family steel coasters                       |
+| D.H Morgan                     | Manufacturer           | Defunct manufacture started by son of one of the founders of Arrow Development, specialized in steel coasters and designing troden coas |
+| booking_changes                | Manufacturer           | Number of changes/amendments made to the booking from the moment the booking was entered on the PMS until the moment of check-in or can |
+| Rocky Mountain Construction    | Manufacturer           | The "Tesla" of roller coaster manufactures due to their recent widespread popularity and disruptive hybrid roller coaster models with w |
+| Maurer                         | Manufacturer           | ID of the travel agency that made the booking                                                                                           |
+| Dynamic Attractions            | Manufacturer           | ID of the company/entity that made the booking or responsible for paying the booking. ID is presented instead of designation fty reasons|
+| days_in_waiting_list           | double                 | Number of days the booking was in the waiting list before it was confirmed to the customer                                              |
+| customer_type                  | character              | Type of booking, assuming one of four categories:<br>Contract - when the booking has an allotment or other type of contract associated t|
+| adr                            | double                 | Average Daily Rate as defined by dividing the sum of all lodging transactions by the total number of staying nights                     |
+| required_car_parking_spaces    | double                 | Number of car parking spaces required by the customer                                                                                   |
+| total_of_special_requests      | double                 | Number of special requests made by the customer (e.g. twin bed or high floor                                                            |
+| reservation_status             | character              | Reservation last status, assuming one of three categories:<br>Canceled – booking was canceled by the customer;<br>Check-Out – customer  | 
+| reservation_status_date        | double                 | Date at which the last status was set. This variable can be used in conjunction with the ReservationStatus to understand when was the   |
+##  Questions
+| Questions                                                                                           |
+|:----------------------------------------------------------------------------------------------------|
+|1. What is the height, speed, inversion, length and duration distribution of all existent coasters   |
+|2. What is the census of coasters from certain manufactures? Who is most popular? Least Popular?     |
+|3. What is the most popular model of a manufacture's coaster in California                           |
+
+##  Height Versus Speed Of Existent Coasters
+```{r Existant Coasters statisical breakdown between height and speed }
+scatterPlot <- currentDataFrame %>% 
+  ggplot(mapping = aes(x = Speed, y = Height, 
+             text = paste(
+             Name, " at ", Park, "\n", 
+                "Description: ", Type ,"", Model.Name, "\n",
+                "Built by", Manufacturer, " in ", Year,"\n",
+             Speed, " mph \n",
+             Height, " ft \n"))) + geom_smooth(method = "lm", color = "yellow") +
+  geom_point(aes(color = Type)) + 
+  labs(x = "Speed", 
+       y = "Height",
+       title = "Speed compared to Height Of All Coasters") +
+  geom_hline(yintercept=0, linetype="dashed", color = "#2C528C", size=0.5) + geom_vline(xintercept=0, linetype="dashed", color = "#2C528C", size=0.5) 
+
+ggplotly(scatterPlot, tooltip = "text")
+
+```
+
+## Length versus height
+```{r Existant Coasters statisical breakdown length and height}
+
+scatterPlot2 <- currentDataFrame %>% 
+  ggplot(width = 700, height = 700,mapping = aes(x = Length, y = Height, 
+             text = paste(
+             Name, " at ", Park, "\n", 
+                "Description: ", Type ,"", Model.Name, "\n",
+                "Built by", Manufacturer, " in ", Year,"\n",
+             Length, " ft \n",
+             Height, " ft \n"))) + geom_smooth(method = "lm", color = "yellow") +
+  geom_point(aes(color = Type)) + 
+  labs(x = "Length", 
+       y = "Height",
+       title = "Length compared to Height Of All Coasters") +
+  geom_hline(yintercept=0, linetype="dashed", color = "#2C528C", size=0.5) + geom_vline(xintercept=0, linetype="dashed", color = "#2C528C", size=0.5) 
+
+ggplotly(scatterPlot2, tooltip = "text")
+```
+
+
+## Height Histogram
+```{r height historgram}
+c_year <- c(currentDataFrame$Year)
+c_height <- c(currentDataFrame$Height)
+c_types <- c(currentDataFrame$Type)
+
+x <- c(currentDataFrame$Year)
+y <- c(currentDataFrame$Height)
+
+text <- c(currentDataFrame$Name)
+data <- data.frame(c_year, c_height, text)
+
+currentDataFrame %>%
+  plot_ly(width = 700, height = 700,text = text,
+        marker = list(color = ~c_types,
+      size = 20)) %>%
+  add_bars(x= ~c_year, y = ~c_height, color = ~c_types)
+```
+
+## General Statistics
+
+### What is the census of coasters from certain manufactures? Who is most popular? Least Popular? 
+*https://stackoverflow.com/questions/8545590/find-the-most-popular-element-in-int-array*
+*https://stackoverflow.com/questions/5738831/r-plus-equals-and-plus-plus-equivalent-from-c-c-java-etc*
+**Below are some functions for the next section **
+
+*Get Mode*
+```{r}
+getmode <- function(v) {
+   uniqv <- unique(v)
+   uniqv[which.max(tabulate(match(v, uniqv)))]
+}
+
+
+count <- 0
+inc <- function(count)
+{
+ eval.parent(substitute(count <- count + 1))
+}
+
+#Frequency of a column
+countMode <- function(catagory){
+  previous <- catagory[1]
+  popular <- catagory[1]
+  maxCount <- 1
+  for (i in 1 : length(catagory)) {
+    if(previous == catagory[i]){
+     inc(count)
+    }
+    else{
+        if(count > maxCount){
+          popular <- catagory[i - 1]
+          maxCount = count;
+        }
+    }
+  }
+  return <- maxCount
+}
+
+
+```
+
+
+```{r Popularity}
+
+df <- currentDataFrame %>% select(Manufacturer, Model.Name)
+manufactures = c(df$Manufacturer)
+listOfMan <- manufactures[!duplicated(manufactures)]
+
+Models = length(listOfMan) + 1
+Installations = 2
+table <-data.frame(Models,Installations)
+
+for(i in 1 : length(listOfMan))
+{
+    nextFrame <- df %>% filter(Manufacturer == listOfMan[i])
+    nextlistOfMods <- nextFrame$Model.Name
+    nextMode <- getmode(nextFrame$Model.Name)
+    nextFreq <- countMode(nextlistOfMods)
+    table[i,1] <- nextMode
+    table[i,2] <- nextFreq
+}
+mods <- c(table$Models)            #x axis data v 
+installs <- c(table$Installations) #y axis data v
+text <- listOfMan
+fig <- plot_ly(x = mods, y = installs, name = ~listOfMan, type = "bar", color = ~listOfMan)
+fig
+#table <- data.frame(table)
+#class(table)
+#table
+#mtrx <- setNames(installs,mods) #set the table for every year's loss
+#barplot(mtrx, xlab = "Model", ylab = "Num of Installations", main = "Installations ", col = rainbow(length(mods)),horiz = TRUE)
+
+```
+
+## Topic 2
+
+### Exercise with Hint
+
+*Here's an exercise where the chunk is pre-evaluated via the `exercise.eval` option (so the user can see the default output we'd like them to customize). We also add a "hint" to the correct solution via the chunk immediate below labeled `print-limit-hint`.*
+
+Modify the following code to limit the number of rows printed to 5:
+
+```{r print-limit, exercise=TRUE, exercise.eval=TRUE}
+mtcars
+```
+
+```{r print-limit-hint}
+head(mtcars)
+```
+
+### Quiz
+
+*You can include any number of single or multiple choice questions as a quiz. Use the `question` function to define a question and the `quiz` function for grouping multiple questions together.*
+
+Some questions to verify that you understand the purposes of various base and recommended R packages:
+
+```{r quiz}
+quiz(
+  question("Which package contains functions for installing other R packages?",
+    answer("base"),
+    answer("tools"),
+    answer("utils", correct = TRUE),
+    answer("codetools")
+  ),
+  question("Which of the R packages listed below are used to create plots?",
+    answer("lattice", correct = TRUE),
+    answer("tools"),
+    answer("stats"),
+    answer("grid", correct = TRUE)
+  )
+)
+```
+

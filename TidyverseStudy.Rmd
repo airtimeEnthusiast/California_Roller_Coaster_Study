@@ -198,6 +198,52 @@ scatterPlot2 <- currentDataFrame %>% filter(Region == "N") %>%
 ggplotly(scatterPlot2, tooltip = "text")
 ```
 
+
+# 2A. The Dipper Twins 
+Roller Coasters grew ever so popular around the turn of the Century in the US. The two classic Giant Dippers are the two California Classics both Designed by the legendary Frank Prior and Fredrick Church. However many disappeared post 1929 until a renissance occured beginning in the 1950s
+<center>
+![](https://blog.beachboardwalk.com/sites/bw-news/files/ndmblog028_img005_1925_GiantDipper_001.jpg){width=98%}
+Santa Cruz's Giant Dipper features more of an out and back style layout with airtime hills
+![](https://www.youtube.com/watch?v=ZmZvKYtc7g0){width=50%}
+![](https://1.bp.blogspot.com/-pXD0dNvIuEI/Xv-J4nV9kwI/AAAAAAAAqTY/Jc7L1QXVWE88mrfDBF3_kLP6_Dzl9OWbgCLcBGAsYHQ/s640/8pq4w0w4myi21.jpg)
+       San Diego's Giant Dipper Belmont Park focuses more on lateral forces with low banked curves and drops in a twister style layout
+![](https://www.youtube.com/watch?v=HDOFjwnbIws){width=50%}
+
+</center>
+
+
+# 2A. The Disney Innovation and beginning of the "coaster wars"  
+Inspired from his last film Third Man on the Mountain, Walt Disney had the ambition to build first tubular steel track roller coasters in the form of the Matterhorn Bobsleds. Manufactured by Arrow Development, this contractor would go on to design many early Disney dark ride systems and become a [dominante](https://www.youtube.com/watch?v=rGKgVxx5Wu8) player in the roller coaster industry
+<center>
+![](https://lh3.googleusercontent.com/proxy/ESIWuGHHPxSYwHfNqJyZKd09ID98kc71lU_QPP-P1Vw3X8JZkTc3TdPzr7_w8iVi_QMAePQGHS04ePuOES2nMn1nZcji1t6qyva7Fcgqq2WCG-L1saj7EMPQUpPgp8o){width=55%}
+![](https://upload.wikimedia.org/wikipedia/commons/thumb/4/4c/Matterhorndisney.jpg/800px-Matterhorndisney.jpg){width=40%}
+Disney would purchase two variants of Arrow's dual track coaster system in 1959 for Disneyland and 1975 for Walt Disney World
+Matterhorn POV
+![](https://www.youtube.com/watch?v=6VGNdjgFKTA){width=50%}
+Matterhorn POV
+Space Mountain Walt Disney World POV
+![](https://www.youtube.com/watch?v=q1kokrfOS_Q){width=50%}
+![](https://1.bp.blogspot.com/-pXD0dNvIuEI/Xv-J4nV9kwI/AAAAAAAAqTY/Jc7L1QXVWE88mrfDBF3_kLP6_Dzl9OWbgCLcBGAsYHQ/s640/8pq4w0w4myi21.jpg)
+
+# 3A. Explosive popularity of Arrow Development 
+1975 not only was a big year with the opening of space mountain but  down the street from Disneyland, Knott's Berry Farm would debut Arrow's corkscrew prototype which was the world's first successful inverting roller coaster 
+![](http://www.itsasmallworldblog.com/uploads/5/8/3/9/5839250/screenshot-2020-09-17-22-26-00-2_orig.png){width=50%}
+Knott's Corkscrew at it's current Idaho location
+![](https://www.youtube.com/watch?v=3NbQoSMx0d0){width=40%}
+
+# Revolutionary Tricentennial 
+The Northern California rival, Marriott Great America would open Turn of the Century another Arrow Corkscrew with a custom out and back layout.
+![](https://www.themeparkreview.com/parks/pimages/Californias_Great_America/Turn_of_the_Century/toc002.jpg)
+German mechanical engineer Anton Schwarzkopf, would debut 
+Turn of the Century* now known as the [Demon](https://rcdb.com/76.htm)
+![](https://www.youtube.com/watch?v=YJod9tuFYl4)
+![](https://i0.wp.com/www.greatamericaparks.com/wp-content/uploads/2018/03/demon-130802-0001.jpg?resize=2000%2C1200&ssl=1)
+![](http://www.thecoasterguy.com/wordpress/wp-content/gallery/revolution/sfmm_revolution_51.jpg)
+![](https://i.pinimg.com/originals/66/f9/62/66f962f53b0fb785a205aea851127fa2.jpg)
+![](https://www.youtube.com/watch?v=aMDAoaCyB1c)
+</center>
+
+
 ## 2A. Before 1980
 ```{r Before 1980 Stats}
 
@@ -244,6 +290,8 @@ ggplotly(barplot, tooltip = "text")
 
 ```
 
+<center>
+
 
 ## 3A. After 1980
 
@@ -279,34 +327,6 @@ barplot <- ggplot(data = filteredDataFrame, width = 700, height = 700,mapping = 
 ggplotly(barplot, tooltip = "text") 
 
 ```
-
-## 1B. Comparing Significant Coasters before 1980
-```{r Focus on Coasters Before 1980}
-
-#Turn of the Century 
-```
-
-# The Dipper Twins 
-Roller Coasters grew ever so popular around the turn of the Century in the US. The two classic Giant Dippers are the two California Classics both Designed by the legendary Frank Prior and Fredrick Church 
-<center>
-![](https://blog.beachboardwalk.com/sites/bw-news/files/ndmblog028_img005_1925_GiantDipper_001.jpg){width=98%}
-Santa Cruz's Giant Dipper features more of an out and back style layout with airtime hills
-![](https://www.youtube.com/watch?v=ZmZvKYtc7g0){width=50%}
-![](https://1.bp.blogspot.com/-pXD0dNvIuEI/Xv-J4nV9kwI/AAAAAAAAqTY/Jc7L1QXVWE88mrfDBF3_kLP6_Dzl9OWbgCLcBGAsYHQ/s640/8pq4w0w4myi21.jpg)
-San Diego's Giant Dipper Belmont Park focuses more on lateral forces with low banked curves and drops in a twister style layout
-![](https://www.youtube.com/watch?v=HDOFjwnbIws){width=50%}
-
-</center>
-
-```{r Giant Dipper Comparison }
-
-
-
-```
-![](https://www.coaster101.com/wp-content/uploads/2015/03/Turn-of-the-Century-600x414.jpg)
-Turn of the Century* now known as the [Demon](https://rcdb.com/76.htm) introduced a first for it's time corkscrew inversions
-![](http://www.thecoasterguy.com/wordpress/wp-content/gallery/revolution/sfmm_revolution_51.jpg)
-*Revolution* was the first to feature a vertical loop
 
 
 
@@ -399,11 +419,7 @@ currentDataFrame %>%
 ```
 
 
-![](https://youtu.be/zNzZ1PfUDNk){width="40%"}
-![](http://www.online-image-editor.com//styles/2014/images/example_image.png)
-
-
-## 1D. Popular Models From Each Manufacture
+## 1D. Popular Models
 ```{r Popularity}
 
 df <- currentDataFrame %>% select(Manufacturer, Model.Name)
@@ -608,5 +624,102 @@ fig
 ```{r Parks with the most coasters}
 
 ```
+
+
+
+## 10. My ten favorite coasters compared
+
+<center>
+
+# 10. B&M's Old School Invert: Flight Deck 
+![](https://siliconvalleycentral.files.wordpress.com/2014/04/flight-deck-red11.jpg){width=70%}
+![](https://www.youtube.com/watch?v=eS3ZAMVI4-Q&feature=emb_logo)
+
+
+# 9. Dynamic Structure's: Space Mountain 
+![](https://www.themeparktribune.com/wp-content/uploads/2020/09/Space-Mountain-Disneyland-Disney.jpg){width=80%}
+![](https://www.youtube.com/watch?v=e-Z0kd2l88Y)
+
+# 8. Arrow's Remaining and Largest Multi-Looper: Viper
+![](https://www.ultimaterollercoaster.com/coasters/pictures/viper/img/six-flags-magic-mountain-viper_8781.jpg)
+![](https://www.youtube.com/watch?v=PXRVqSmXKO0)
+
+
+# 7. Some of CCI's Best Work: Ghostrider 
+![](https://www.ocregister.com/wp-content/uploads/migration/ntc/ntc3rq-b88490469z.120150819074525000gmfbga38.10.jpg){width=80%}
+![](https://www.youtube.com/watch?v=aU3ZF0_Shv4&t=93s)
+
+
+# 6. GCI Masterpiece: Gold Striker
+![](https://i.pinimg.com/originals/34/bc/c0/34bcc0f277e29aed66d60911669ae1af.jpg){width=80%}
+![](https://www.youtube.com/watch?v=wRjMvK61tes)
+
+
+# 5. B&M's Ambitious Flying Coaster: Tatsu 
+![](https://coastercritic.com/wp-content/uploads/2009/09/tatsu-magic-mountain-layout-700x400.jpg)
+![](https://www.youtube.com/watch?v=ciSo2vhcmQE&t=21s)
+
+
+# 4. Intamin's Hydraulic Protoype: Xcelerator 
+![](https://i.pinimg.com/originals/9f/39/30/9f3930eaa429250b36bd9e17d472c597.jpg)
+![](https://www.youtube.com/watch?v=jrtZKhGOQYo)
+
+
+# 3. Arrow's 4th Dimension Protype: X2 
+![](https://i.pinimg.com/originals/53/d7/fe/53d7fec4689cc6c1a7a5b6206cf06abf.jpg){width=90%}
+![](https://www.youtube.com/watch?v=W20Hc7YELmk)
+
+
+
+
+# 2. RMC's Protype Single Rail: Railblazer
+
+![](http://www.negative-g.com/californias-great-america/2019/californias-great-america-2019-railblazer-30.jpg)
+![](https://www.youtube.com/watch?v=k2OhRWz2VY4&t=1s)
+
+
+
+
+# 1. RMC's Dualing IBOX: Twisted Colossus  
+![](https://www.dailynews.com/wp-content/uploads/migration/2015/201505/NEWS_150529952_AR_0_OQZBWKLMXOLO.jpg){width=90%}
+![](https://www.youtube.com/watch?v=JIcQOV6azSI)
+
+
+
+
+#Favorites by the numbers 
+```{r Favorites}
+# Speed Historgram
+Targets <- c("Twisted Colossus", "Viper", "Space Mountain", "GhostRider", "Gold Striker", "Flight Deck", "Railblazer", "X2", "Xcelerator", "Tatsu")
+filteredDataFrame <- currentDataFrame %>% filter(Name %in% Targets) 
+barplot <- ggplot(data = filteredDataFrame, width = 700, height = 700,mapping = aes(x = Year, y = Speed, 
+             text = paste(
+             Name, " at ", Park, "\n", 
+                "Description: ", Type ,"", Model.Name, "\n",
+                "Built by", Manufacturer, " in ", Year,"\n",
+             Speed, " mph\n"))) + geom_bar(stat="identity", fill="yellow") + labs(title = "Speed Historgram After 1980")
+ggplotly(barplot, tooltip = "text") 
+
+# Height Historgram
+barplot <- ggplot(data = filteredDataFrame, width = 700, height = 700,mapping = aes(x = Year, y = Height, 
+             text = paste(
+             Name, " at ", Park, "\n", 
+                "Description: ", Type ,"", Model.Name, "\n",
+                "Built by", Manufacturer, " in ", Year,"\n",
+             Speed, " ft\n"))) + geom_bar(stat="identity", fill= "blue") + labs(title = "Height Historgram After 1980")
+ggplotly(barplot, tooltip = "text") 
+
+# Length Historgram
+barplot <- ggplot(data = filteredDataFrame, width = 700, height = 700,mapping = aes(x = Year, y = Length, 
+             text = paste(
+             Name, " at ", Park, "\n", 
+                "Description: ", Type ,"", Model.Name, "\n",
+                "Built by", Manufacturer, " in ", Year,"\n",
+             Speed, " ft\n"))) + geom_bar(stat="identity", fill= "red") + labs(title = "Length Historgram After 1980")
+ggplotly(barplot, tooltip = "text") 
+
+```
+
+
 
 

@@ -36,26 +36,7 @@ currentDataFrame
 ```
 
 Intro:
-Ever since I was tall enough to go on a thrilling roller coaster, they have been a relatively interesting hobby for many reasons besides the wonderful rush of adrenaline. Roller Coasters are great models of reality such as structural and mechanical engineering, programmable logic software, control theory and statistical analysis in this case. In this report I choose to focus on roller coasters within the state of California because it is currently the state with the most roller coasters about 93 as of this report with a few new coasters to open in 2022 as well as some that are in the process of being removed. Many coasters such as children coasters have very similar layouts, little information on stats, and lack interesting characteristics so they might not be emphasized much for this reason. However it is quite obvious that some things cannot be analyzed easily such as rider hourly capacity and inconsistency with ride duration. Some stats however were relatively easy to find such as height, speed, inversion count, manufacture, and manufacture model name/type. I have ridden over 90% of the coasters on this list more than once so I have a good idea of the ride experience.
-
-## Sources
-Data Sources				
-https://rcdb.com/r.htm?ot=2&ex&ol=1499				CA existant coasters according to RCDB
-More info on Big Thunder https://en.wikipedia.org/wiki/Big_Thunder_Mountain_Railroad				
-https://stg.statcrunch.com/app/index.php?dataid=2188685				
-https://www.youtube.com/watch?v=FfDonRPuYZg				Coastersaurus
-https://www.youtube.com/watch?v=QIG3wVbR6pw				 Canyon Blaster
-https://rcdb.com/r.htm?ot=2&mo=8280				Coast Rider
-https://rcdb.com/4003.htm			Same model as cobra	
-https://sbfrides.com/products/spinning-coaster/				 SBF Visa Spinning coaster
-https://www.youtube.com/watch?v=W8oEo96_QnU				 Dragon Legoland
-https://coasterpedia.net/wiki/Dragon_(Legoland_California)				
-https://rcdb.com/1478.htm			Same model as Goofy's Sky School	
-https://en.wikipedia.org/wiki/The_Grizzly				
-https://en.wikipedia.org/wiki/Incredicoaster				
-https://en.wikipedia.org/wiki/Matterhorn_Bobsleds				
-https://en.wikipedia.org/wiki/Space_Mountain_(Disneyland)				
-https://www.ultimaterollercoaster.com/coasters/timber-twister				
+Ever since I was tall enough to go on a thrilling roller coaster, they have been a relatively interesting hobby for many reasons besides the wonderful rush of adrenaline. Roller Coasters are great models of reality such as mechanical engineering, control theory and have various characteristics for statistical analysis. In high school I operated a few large scale coasters at my home regional park so I have some insight from an operational perspective. In this report I choose to focus on roller coasters within the state of California because it is currently the state with the most roller coasters about 93 and have ridden all of the major coasters outside of Sea World.Some stats were easier to find such as height, speed, inversion count, manufacture, and manufacture model name/type. However other figures such as capacity and ride duration were a bit inconsistent between sources and other mechanical factors like temperature.
 
 ## Study Information
 Study:
@@ -69,35 +50,25 @@ Since I am a big fan of many of these roller coasters, I want to see how they co
 |   |                                                       |
 |:--|:------------------------------------------------------| 
 |A. | General Stats Compared                                |
-|2. | Length versus Height                                  |
-|3. | What are the fastest roller coasters?                 |
-|4. | What are the tallest coasters?                        |
-|5. | What are the longest coasters?                        |
-|6. | What are the coasters with the most inversions        |
-|7. | The Most popular coaster models from each manufacture |
-|8. | The average height from each manufacture's coasters   |
-|9. | The average speed from each manufacture's coasters    |
-|10. | Questions(1-4 with my top 10 favorites)              |
-|11.| Popular Models within eras                            |
-|12.| Parks with the most coasters                          |
+
 
 
 ## Data Dictionary
 | Term                           | Type                   | description                                                                                                                             |
 |:-------------------------------|:-----------------------|:----------------------------------------------------------------------------------------------------------------------------------------|
-| Six Flags                      | Cooperate Chain        | The largest US themepark operator and own two parks in California (Six Flags Magic Mountain, Six Flags Discovery Kingdom)               |                                     
-| Cedar Fair                     | Cooperate Chain        | Operate three regional parks in California (California's Great America, Knott's Berry Farm, Gilroy Gardens)                             |
+| Six Flags                      | Cooperate Chain        | The largest US theme park operator and own two parks in California (Magic Mountain, Discovery Kingdom)                                  |                           
+| Cedar Fair                     | Cooperate Chain        | Owner  of California's Great America, Knott's Berry Farm and Gilroy Gardens                                                             |
 | Sea World                      | Cooperate Chain        | Owner of Sea World San Diego                                                                                                            |
 | Disney                         | Cooperate Chain        | Owner of California Adventure and Disneyland                                                                                            |
 | Universal Studios              | Cooperate Chain        | Owner of Universal Studios Hollywood                                                                                                    |
 | Merlin Entertainment           | Cooperate Chain        | Owner of Legoland California                                                                                                            |
-| Wood                           | Roller Coaster Type    | A coaster which is supported by wood a structure and has wood track not typically capable of inversions                                 |
-| Steel                          | Roller Coaster Type    | A coaster constructed out of steel supports and steel track typically capable of inversions                                             |
-| Inversion                      | Coaster Element        | A section of coaster track where the roller coaster riders will be turned upside down. Elements like vertical loops, corkscre           |
-| Great Coasters International   | Manufacturer           | Specialize in only wooden coasters which typically have banked turned in a "twister" style track layout                                 |
-| Bollinger & Mabillard          | Manufacturer           | Builder of coasters for their high reliability, smoothness and high inversion count, B&M has been one of the most popular ma            |
-| Intamin                        | Manufacturer           | Known as industry leader with many coasters with record breaking stats such as height or speed and technological innovatio              |
-| Premier Rides                  | Manufacturer           | An expert in launch coasters and developed the first coaster to use a LIM proposition mechanism. Premier only manufactures sel coasters |
+| Wood                           | Roller Coaster Type    | A coaster which has wood track, supports and is typically incapable of inversions.                                                      |
+| Steel                          | Roller Coaster Type    | A coaster constructed out of steel supports and steel track typically capable of inversions.                                            |
+| Inversion                      | Coaster Element        | A section of coaster track where the roller coaster riders will be turned upside down. Elements like vertical loops and corkscrews.     |
+| Great Coasters International   | Manufacturer           | Specialize in only wooden coasters which typically have banked turns in a "twister" style track layout                                  |
+| Bollinger & Mabillard          | Manufacturer           | Builder of steel coasters with their signature box track for their high reliability, smoothness and high inversion count.               |
+| Intamin                        | Manufacturer           | An Industry leader with many coasters first's of it's kind designs and record breaking stats.                                           |
+| Premier Rides                  | Manufacturer           | Specializes in launch coasters and developed the first coaster to use a [LIM](https://en.wikipedia.org/wiki/Linear_induction_motor) proposition mechanism.|
 | Mack Rides                     | Manufacturer           | Manufacture in preminum steel family lauch coasters and spinning coasters. Mack only manufactures steel coasters                        |
 | Schwarzkopf                    | Manufacturer           | Defunct manufacture that was an industry leader in the late 70s to late 80s in steel looping coasters                                   |
 | Arrow Development              | Manufacturer           | Defunct manufacture that was an industry leader from the 1950s till their bankruptcy in 2002 the created the first tu                   |
@@ -721,5 +692,23 @@ ggplotly(barplot, tooltip = "text")
 ```
 
 
+## Sources
+Data Sources				
+https://rcdb.com/r.htm?ot=2&ex&ol=1499				CA existant coasters according to RCDB
+More info on Big Thunder https://en.wikipedia.org/wiki/Big_Thunder_Mountain_Railroad				
+https://stg.statcrunch.com/app/index.php?dataid=2188685				
+https://www.youtube.com/watch?v=FfDonRPuYZg				Coastersaurus
+https://www.youtube.com/watch?v=QIG3wVbR6pw				 Canyon Blaster
+https://rcdb.com/r.htm?ot=2&mo=8280				Coast Rider
+https://rcdb.com/4003.htm			Same model as cobra	
+https://sbfrides.com/products/spinning-coaster/				 SBF Visa Spinning coaster
+https://www.youtube.com/watch?v=W8oEo96_QnU				 Dragon Legoland
+https://coasterpedia.net/wiki/Dragon_(Legoland_California)				
+https://rcdb.com/1478.htm			Same model as Goofy's Sky School	
+https://en.wikipedia.org/wiki/The_Grizzly				
+https://en.wikipedia.org/wiki/Incredicoaster				
+https://en.wikipedia.org/wiki/Matterhorn_Bobsleds				
+https://en.wikipedia.org/wiki/Space_Mountain_(Disneyland)				
+https://www.ultimaterollercoaster.com/coasters/timber-twister		
 
 

@@ -1,4 +1,4 @@
-﻿Name,Park,City,Type,Height,Speed,Length,Inversions?,Num of Inversions,Durration,Year,Manufacturer,Model Name,Area
+﻿Name,Park,City,Type,Height,Speed,Length,Inversions?,Num of Inversions,Durration,Year,Manufacturer,Model Name,Region
 Apocalpyse the Ride,Six Flags Magic Mountain,Valencia,Wood,95,50.1,2877,No,0,300,2009,Great Coasters International,GCI Wooden Coaster,S
 Batman The Ride,Six Flags Discovery Kingdom,Vallejo,Steel,120,38,1019,No,0,NA,2019,S&S Sansei,4D Free Spin,N
 Batman The Ride,Six Flags Magic Mountain,Valencia,Steel,105,50,2700,Yes,5,200,1994,Bollinger & Mabillard,Inverted Coaster,S
@@ -9,7 +9,7 @@ Coaster,Blackbeard's Family Entertainment Center,Fresno,Steel,NA,NA,NA,No,0,NA,2
 Coastersaurus,Legoland California,Carlsbad,Steel,18.1,20.5,492.2,No,0,117,2004,Gerstlaurer,Drachenjagd,S
 Coast Rider,Knott's Berry Farm,Buena Park,Steel,52,35,1339,No,0,130,2013,Mack Rides,Wilde Maus,S
 Cobra,Six Flags Discovery Kingdom,Vallejo,Steel,26.3,22.4,1181.1,No,0,105,2000,Zierer,Tivoli,N
-Crazy 8's,John's Incredible Pizza Company,Carson,Steel,16.4,100.44,190.3,No,0,NA,2019,SBF Visa,SBF Visa Spinning Coaster,S
+Crazy 8's,John's Incredible Pizza Company,Carson,Steel,16.4,15,190.3,No,0,NA,2019,SBF Visa,SBF Visa Spinning Coaster,S
 Crazy Dane Coaster,Scandia ,Sacramento,Steel,NA,NA,NA,No,0,NA,2015,E&F Miler,E&F Wild Mouse,N
 Crazy Mouse,Speed Zone,City Of Industry,Steel,42.7,29.1,1377,No,0,215,2021,Zamperla,Twister Coaster,S
 Demon,California's Great America,Santa Clara,Steel,102,50,2130,Yes,4,145,1976,Arrow Development,Custom Looper,N

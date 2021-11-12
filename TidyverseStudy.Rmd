@@ -24,7 +24,7 @@ options(warn=-1)
  | The Data Frame |
  v                v
 ```{r Load-df}
-rawDataFrame <- "./data/ca_data.csv"
+rawDataFrame <- "./data/ca_data_region.csv"
 currentDataFrame <- read.csv(rawDataFrame)
 currentDataFrame
 ```
@@ -68,8 +68,8 @@ Since I am a big fan of many of these roller coasters, I want to see how they co
 ## Questions 
 |   |                                                       |
 |:--|:------------------------------------------------------| 
-|1. | Height versus Speed of all the coasters?              |
-|2. | Length versus Height
+|A. | General Stats Compared                                |
+|2. | Length versus Height                                  |
 |3. | What are the fastest roller coasters?                 |
 |4. | What are the tallest coasters?                        |
 |5. | What are the longest coasters?                        |
@@ -77,7 +77,7 @@ Since I am a big fan of many of these roller coasters, I want to see how they co
 |7. | The Most popular coaster models from each manufacture |
 |8. | The average height from each manufacture's coasters   |
 |9. | The average speed from each manufacture's coasters    |
-|10. | Questions(1-4 with my top 10 favorites)               |
+|10. | Questions(1-4 with my top 10 favorites)              |
 |11.| Popular Models within eras                            |
 |12.| Parks with the most coasters                          |
 
@@ -123,6 +123,7 @@ Since I am a big fan of many of these roller coasters, I want to see how they co
 # https://stackoverflow.com/questions/5738831/r-plus-equals-and-plus-plus-equivalent-from-c-c-java-etc
 # Below are some functions for the next section 
 
+
 getmode <- function(v) {
    uniqv <- unique(v)
    uniqv[which.max(tabulate(match(v, uniqv)))]
@@ -157,88 +158,208 @@ countMode <- function(catagory){
 
 ```
 
-## 0.  Length versus height
-```{r Existant Coasters statisical breakdown length and height}
 
-scatterPlot2 <- currentDataFrame %>% 
+## 1A.  General Data Comparisons 
+```{r Existant Coasters statisical breakdowns }
+
+# Length Versus Height of Southern California Coasters
+scatterPlot <- currentDataFrame %>% filter(Region == "S") %>%
   ggplot(width = 700, height = 700,mapping = aes(x = Length, y = Height, 
              text = paste(
              Name, " at ", Park, "\n", 
                 "Description: ", Type ,"", Model.Name, "\n",
                 "Built by", Manufacturer, " in ", Year,"\n",
-             Length, " ft \n",
-             Height, " ft \n"))) + geom_smooth(method = "lm", color = "yellow") +
+             Length, " ft long\n",
+             Height, " ft tall\n"))) + #geom_smooth(method = "lm", color = "yellow") +
   geom_point(aes(color = Type)) + 
   labs(x = "Length", 
        y = "Height",
-       title = "Length compared to Height Of All Coasters") +
+       title = "Length Versus Height of SoCal Coasters") +
+  geom_hline(yintercept=0, linetype="dashed", color = "#2C528C", size=0.5) + geom_vline(xintercept=0, linetype="dashed", color = "#2C528C", size=0.5) 
+
+ggplotly(scatterPlot, tooltip = "text")
+
+
+# Length Versus Height of Northern California Coasters
+scatterPlot2 <- currentDataFrame %>% filter(Region == "N") %>%
+  ggplot(width = 700, height = 700,mapping = aes(x = Length, y = Height, 
+             text = paste(
+             Name, " at ", Park, "\n", 
+                "Description: ", Type ,"", Model.Name, "\n",
+                "Built by", Manufacturer, " in ", Year,"\n",
+             Length, " ft long\n",
+             Height, " ft tall\n"))) + #geom_smooth(method = "lm", color = "yellow") +
+  geom_point(aes(color = Type)) + 
+  labs(x = "Length", 
+       y = "Height",
+       title = "Length Versus Height of NorCal Coasters") +
   geom_hline(yintercept=0, linetype="dashed", color = "#2C528C", size=0.5) + geom_vline(xintercept=0, linetype="dashed", color = "#2C528C", size=0.5) 
 
 ggplotly(scatterPlot2, tooltip = "text")
 ```
 
-## 1. Height VS Speed
-```{r All Height VS Speed }
-scatterPlot <- currentDataFrame %>% 
-  ggplot(mapping = aes(x = Speed, y = Height, 
+## 2A. Before 1980
+```{r Before 1980 Stats}
+
+#Speed Historgram
+filteredDataFrame <- currentDataFrame %>% filter(Year <= 1980)
+barplot <- ggplot(data = filteredDataFrame, width = 700, height = 700,mapping = aes(x = Year, y = Speed, 
              text = paste(
              Name, " at ", Park, "\n", 
                 "Description: ", Type ,"", Model.Name, "\n",
                 "Built by", Manufacturer, " in ", Year,"\n",
-             Speed, " mph \n",
-             Height, " ft \n"))) + geom_smooth(method = "lm", color = "yellow") +
-  geom_point(aes(color = Type)) + 
-  labs(x = "Speed", 
-       y = "Height",
-       title = "Speed compared to Height Of All Coasters") +
-  geom_hline(yintercept=0, linetype="dashed", color = "#2C528C", size=0.5) + geom_vline(xintercept=0, linetype="dashed", color = "#2C528C", size=0.5) 
+             Speed, " mph\n"))) + geom_bar(stat="identity", color= "orange", position=position_dodge()) + labs(title = "Speed Historgram Berfore 1980")
+ggplotly(barplot, tooltip = "text") 
 
-ggplotly(scatterPlot, tooltip = "text")
-
-```
-
-```{r Height above 50ft VS Speed}
-filteredDF <- subset(currentDataFrame, subset=((Height >= 100)))
-scatterPlot <- filteredDF %>% 
-  ggplot(mapping = aes(x = Speed, y = Height, 
+#Height Historgram
+filteredDataFrame <- currentDataFrame %>% filter(Year <= 1980)
+barplot <- ggplot(data = filteredDataFrame, width = 700, height = 700,mapping = aes(x = Year, y = Height, 
              text = paste(
              Name, " at ", Park, "\n", 
                 "Description: ", Type ,"", Model.Name, "\n",
                 "Built by", Manufacturer, " in ", Year,"\n",
-             Speed, " mph \n",
-             Height, " ft \n"))) + geom_smooth(method = "lm", color = "yellow") +
-  geom_point(aes(color = Type)) + 
-  labs(x = "Speed", 
-       y = "Height",
-       title = "Speed compared to Height Of All Coasters Over 50ft") +
-  geom_hline(yintercept=0, linetype="dashed", color = "#2C528C", size=0.5) + geom_vline(xintercept=0, linetype="dashed", color = "#2C528C", size=0.5) 
+             Height, " ft\n"))) + geom_bar(stat="identity", color= "red", position=position_dodge()) + labs(title = "Height Historgram Before 1980")
+ggplotly(barplot, tooltip = "text") 
 
-ggplotly(scatterPlot, tooltip = "text")
+#Length Historgram
+filteredDataFrame <- currentDataFrame %>% filter(Year <= 1980)
+barplot <- ggplot(data = filteredDataFrame, width = 700, height = 700,mapping = aes(x = Year, y = Length, 
+             text = paste(
+             Name, " at ", Park, "\n", 
+                "Description: ", Type ,"", Model.Name, "\n",
+                "Built by", Manufacturer, " in ", Year,"\n",
+             Length, " ft\n"))) + geom_bar(stat="identity", color= "blue", position=position_dodge()) + labs(title = "Length Historgram Before 1980")
+ggplotly(barplot, tooltip = "text") 
+
+
+filteredDataFrame <- currentDataFrame %>% filter(Year <= 1980)
+barplot <- ggplot(data = filteredDataFrame, width = 700, height = 700,mapping = aes(x = Year, y = Length, 
+             text = paste(
+             Name, " at ", Park, "\n", 
+                "Description: ", Type ,"", Model.Name, "\n",
+                "Built by", Manufacturer, " in ", Year,"\n",
+             Length, " ft\n"))) + geom_bar(stat="identity", color = "green") + labs(title = "Length Historgram Before 1980")
+ggplotly(barplot, tooltip = "text") 
+
 
 ```
 
 
-## 2. Speed Histogram
-```{r Speed historgram}
-c_year <- c(currentDataFrame$Year)
-c_speed <- c(currentDataFrame$Speed)
-c_types <- c(currentDataFrame$Type)
+## 3A. After 1980
 
-x <- c(currentDataFrame$Year)
-y <- c(currentDataFrame$Speed)
+```{r After 1980 Stats}
+# Speed Historgram
+filteredDataFrame <- currentDataFrame %>% filter(Year >= 1980)
+barplot <- ggplot(data = filteredDataFrame, width = 700, height = 700,mapping = aes(x = Year, y = Speed, 
+             text = paste(
+             Name, " at ", Park, "\n", 
+                "Description: ", Type ,"", Model.Name, "\n",
+                "Built by", Manufacturer, " in ", Year,"\n",
+             Speed, " mph\n"))) + geom_bar(stat="identity", fill= rainbow(63)) + labs(title = "Speed Historgram After 1980")
+ggplotly(barplot, tooltip = "text") 
 
-text <- c(currentDataFrame$Name)
-data <- data.frame(c_year, c_speed, text)
+# Height Historgram
+filteredDataFrame <- currentDataFrame %>% filter(Year >= 1980)
+barplot <- ggplot(data = filteredDataFrame, width = 700, height = 700,mapping = aes(x = Year, y = Height, 
+             text = paste(
+             Name, " at ", Park, "\n", 
+                "Description: ", Type ,"", Model.Name, "\n",
+                "Built by", Manufacturer, " in ", Year,"\n",
+             Speed, " ft\n"))) + geom_bar(stat="identity", fill= rainbow(65)) + labs(title = "Height Historgram After 1980")
+ggplotly(barplot, tooltip = "text") 
 
-currentDataFrame %>%
-  plot_ly(width = 700, height = 700,text = text,
-        marker = list(color = ~c_types,
-      size = 20)) %>%
-  add_bars(x= ~c_year, y = ~c_speed, color = ~c_types)
+# Length Historgram
+filteredDataFrame <- currentDataFrame %>% filter(Year >= 1980)
+barplot <- ggplot(data = filteredDataFrame, width = 700, height = 700,mapping = aes(x = Year, y = Length, 
+             text = paste(
+             Name, " at ", Park, "\n", 
+                "Description: ", Type ,"", Model.Name, "\n",
+                "Built by", Manufacturer, " in ", Year,"\n",
+             Speed, " ft\n"))) + geom_bar(stat="identity", fill= rainbow(62)) + labs(title = "Length Historgram After 1980")
+ggplotly(barplot, tooltip = "text") 
+
+```
+
+## 1B. Comparing Significant Coasters before 1980
+```{r Focus on Coasters Before 1980}
+
+#Turn of the Century 
+```
+
+# The Dipper Twins 
+Roller Coasters grew ever so popular around the turn of the Century in the US. The two classic Giant Dippers are the two California Classics both Designed by the legendary Frank Prior and Fredrick Church 
+<center>
+![](https://blog.beachboardwalk.com/sites/bw-news/files/ndmblog028_img005_1925_GiantDipper_001.jpg){width=98%}
+Santa Cruz's Giant Dipper features more of an out and back style layout with airtime hills
+![](https://www.youtube.com/watch?v=ZmZvKYtc7g0){width=50%}
+![](https://1.bp.blogspot.com/-pXD0dNvIuEI/Xv-J4nV9kwI/AAAAAAAAqTY/Jc7L1QXVWE88mrfDBF3_kLP6_Dzl9OWbgCLcBGAsYHQ/s640/8pq4w0w4myi21.jpg)
+San Diego's Giant Dipper Belmont Park focuses more on lateral forces with low banked curves and drops in a twister style layout
+![](https://www.youtube.com/watch?v=HDOFjwnbIws){width=50%}
+
+</center>
+
+```{r Giant Dipper Comparison }
+
+
+
+```
+![](https://www.coaster101.com/wp-content/uploads/2015/03/Turn-of-the-Century-600x414.jpg)
+Turn of the Century* now known as the [Demon](https://rcdb.com/76.htm) introduced a first for it's time corkscrew inversions
+![](http://www.thecoasterguy.com/wordpress/wp-content/gallery/revolution/sfmm_revolution_51.jpg)
+*Revolution* was the first to feature a vertical loop
+
+
+
+```{r}
+  filteredDataFrame <- currentDataFrame %>% filter(Height >= 140 & Year >= 1980)
+  barplot <- ggplot(data = filteredDataFrame, width = 700, height = 700,mapping = aes(x = Year, y = Height, 
+             text = paste(
+             Name, " at ", Park, "\n", 
+                "Description: ", Type ,"", Model.Name, "\n",
+                "Built by", Manufacturer, " in ", Year,"\n",
+             Height, " ft \n"))) + geom_bar(stat="identity", fill= rainbow(16)) + labs(title = "Coasters over 140ft After 1980")
+  ggplotly(barplot, tooltip = "text")
+```
+
+## 2B. Comparing Significant Coaster after 1980
+```{r Focus on Coasters After 1980}
+# Coasters over 140ft (>1980)
+filteredDataFrame <- currentDataFrame %>% filter(Height >= 140 & Year >= 1980)
+barplot <- ggplot(data = filteredDataFrame, width = 700, height = 700,mapping = aes(x = Year, y = Height, 
+             text = paste(
+             Name, " at ", Park, "\n", 
+                "Description: ", Type ,"", Model.Name, "\n",
+                "Built by", Manufacturer, " in ", Year,"\n",
+             Height, " ft \n"))) + geom_bar(stat="identity", fill= rainbow(16)) + labs(title = "Coasters over 140ft After 1980")
+ggplotly(barplot, tooltip = "text")
+
+
+# Coasters under 140ft over 50ft (>1980)
+filteredDataFrame <- currentDataFrame %>% filter(Height <= 140 & Height >= 50 & Year >= 1980)
+barplot <- ggplot(data = filteredDataFrame, width = 700, height = 700,mapping = aes(x = Year, y = Height, 
+             text = paste(
+             Name, " at ", Park, "\n", 
+                "Description: ", Type ,"", Model.Name, "\n",
+                "Built by", Manufacturer, " in ", Year,"\n",
+             Height, " ft \n"))) + geom_bar(stat="identity", fill= rainbow(24)) + labs(title = "Coasters under 140ft over 50ft After 1980")
+ggplotly(barplot, tooltip = "text")
+
+
+# Coasters over 50 mph (>1980)
+filteredDataFrame <- currentDataFrame %>% filter(Speed >= 50 & Year >= 1980)
+barplot <- ggplot(data = filteredDataFrame, width = 700, height = 700,mapping = aes(x = Year, y = Speed, 
+             text = paste(
+             Name, " at ", Park, "\n", 
+                "Description: ", Type ,"", Model.Name, "\n",
+                "Built by", Manufacturer, " in ", Year,"\n",
+             Speed, " mph\n"))) + geom_bar(stat="identity", fill= rainbow(30)) + labs(title = "Coasters over 50 mph After 1980")
+ggplotly(barplot, tooltip = "text") 
+
 ```
 
 
-## 3.  Inversion Histogram
+
+## 1C. Inversion Histogram
 ```{r Inversion historgram}
 c_inversion<- c(currentDataFrame$Num.of.Inversions)
 
@@ -255,26 +376,8 @@ currentDataFrame %>%
   add_bars(x= ~c_names, y = ~c_inversion, color = ~c_names)
 ```
 
-## 4 .Height Histogram 2
-```{r height historgram}
-#c_year <- c(currentDataFrame$Year)
-c_height <- c(currentDataFrame$Height)
-#c_types <- c(currentDataFrame$Type)
 
-#x <- c(currentDataFrame$Year)
-y <- c(currentDataFrame$Height)
-
-#text <- c(currentDataFrame$Name)
-data2 <- data.frame(c_year, c_height, text)
-
-currentDataFrame %>%
-  plot_ly(width = 700, height = 700,text = text,
-        marker = list(color = ~c_types,
-      size = 20)) %>%
-  add_bars(x= ~c_year, y = ~c_height, color = ~c_types)
-```
-
-## 4 Above 200ft in Coaster Histogram
+## 2C. Above 200ft in Coaster Histogram
 ```{r height historgram over 200}
 c_year <- c(currentDataFrame$Year)
 c_height <- c(currentDataFrame$Height)
@@ -297,9 +400,10 @@ currentDataFrame %>%
 
 
 ![](https://youtu.be/zNzZ1PfUDNk){width="40%"}
+![](http://www.online-image-editor.com//styles/2014/images/example_image.png)
 
 
-## 5. Popular Models From Each Manufacture
+## 1D. Popular Models From Each Manufacture
 ```{r Popularity}
 
 df <- currentDataFrame %>% select(Manufacturer, Model.Name)

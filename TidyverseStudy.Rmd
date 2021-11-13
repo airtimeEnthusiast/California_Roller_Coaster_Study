@@ -14,6 +14,7 @@ library(plotly)
 library(htmlwidgets)
 library(plyr)
 library(reshape2)
+library(data.table)
 knitr::opts_chunk$set(echo = FALSE)
 options(warn=-1)
 ```
@@ -21,21 +22,15 @@ options(warn=-1)
 
 
 ## Background and Purpose
- | The Data Frame |
- v                v
+<center> 
+I created my own data set and verified various sources such as [RCDB](https://rcdb.com) and [Ultimate Coaster](https://www.ultimaterollercoaster.com) and compiled many verifiable stats such as Height, Speed, Location and Length. However I did not end up using all the stats due to time constraints. I don't really emphasize smaller coasters since I have no interest and have missing information.
 ```{r Load-df}
 rawDataFrame <- "./data/ca_data_region.csv"
 currentDataFrame <- read.csv(rawDataFrame)
 currentDataFrame
 ```
 
-```{r Set Enviromental Vars}
-#currentDataFrame <-na.omit(currentDataFrame)
-
-
-```
-
-Intro:
+## Intro:
 Ever since I was tall enough to go on a thrilling roller coaster, they have been a relatively interesting hobby for many reasons besides the wonderful rush of adrenaline. Roller Coasters are great models of reality such as mechanical engineering, control theory and have various characteristics for statistical analysis. In high school I operated a few large scale coasters at my home regional park so I have some insight from an operational perspective. In this report I choose to focus on roller coasters within the state of California because it is currently the state with the most roller coasters about 93 and have ridden all of the major coasters outside of Sea World.Some stats were easier to find such as height, speed, inversion count, manufacture, and manufacture model name/type. However other figures such as capacity and ride duration were a bit inconsistent between sources and other mechanical factors like temperature.
 
 ## Study Information
@@ -50,12 +45,15 @@ Since I am a big fan of many of these roller coasters, I want to see how they co
 |   |                                                       |
 |:--|:------------------------------------------------------| 
 |A. | General Stats Compared                                |
-
+|B. | Brief History and Notable Trends                      |
+|C. | Favorites Compared                                   |
 
 
 ## Data Dictionary
 | Term                           | Type                   | description                                                                                                                             |
 |:-------------------------------|:-----------------------|:----------------------------------------------------------------------------------------------------------------------------------------|
+| RCDB                           | [Database](https://rcdb.com) | Website with a large database of coasters stats                                                                                   |
+| Ultimate Coaster               | [Database](https://www.ultimaterollercoaster.com) | Website with a large database of coaster stats, photos and catagorically filter data                         |
 | Six Flags                      | Cooperate Chain        | The largest US theme park operator and own two parks in California (Magic Mountain, Discovery Kingdom)                                  |                           
 | Cedar Fair                     | Cooperate Chain        | Owner  of California's Great America, Knott's Berry Farm and Gilroy Gardens                                                             |
 | Sea World                      | Cooperate Chain        | Owner of Sea World San Diego                                                                                                            |
@@ -64,30 +62,40 @@ Since I am a big fan of many of these roller coasters, I want to see how they co
 | Merlin Entertainment           | Cooperate Chain        | Owner of Legoland California                                                                                                            |
 | Wood                           | Roller Coaster Type    | A coaster which has wood track, supports and is typically incapable of inversions.                                                      |
 | Steel                          | Roller Coaster Type    | A coaster constructed out of steel supports and steel track typically capable of inversions.                                            |
+| Hybrid                         | Roller Coaster Type    | A coaster constructed out of wood supports and steel track typically capable of inversions.                                             |
+| Multi-Looper                   | Roller Coaster Layout  | A coaster with a focus on postive g-forces and inversions                                                                               |
+| Twister                        | Roller Coaster Layout  | A coaster with a focus on large curves and lateral g-forces                                                                             |
+| Hyper                          | Roller Coaster Layout  | A coaster within the height bounds of greater than 199ft and less than 300ft                                                            |
+| Giga                           | Roller Coaster Layout  | A coaster within the height bounds of greater than 300ft and less than 400ft                                                            |
+| Strata                         | Roller Coaster Layout  | A coaster within the height bounds of greater than 400ft and less than 500ft                                                            |
 | Inversion                      | Coaster Element        | A section of coaster track where the roller coaster riders will be turned upside down. Elements like vertical loops and corkscrews.     |
-| Great Coasters International   | Manufacturer           | Specialize in only wooden coasters which typically have banked turns in a "twister" style track layout                                  |
+| Vertical Loop                  | Coaster Element        | An inversion shaped as a vertically standing "clothoid" loop.                                                                           |
+| Corkscrew                      | Coaster Element        | An elongated vertical loop.                                                                                                             |
+| Positive G-Force               | Coaster Element        | A section of track which produces high centripetal acceleration making riders feel heavy and can cause gray outs in many cases.         |
+| Airtime                        | Coaster Element        | A section of coaster track where the roller coaster riders will experience less than zero or equal vertical G-Force.                    |
+| Great Coasters International   | Manufacturer           | Specialize in only wooden coasters which typically have banked turns in a "twister" style track layout.                                 |
 | Bollinger & Mabillard          | Manufacturer           | Builder of steel coasters with their signature box track for their high reliability, smoothness and high inversion count.               |
 | Intamin                        | Manufacturer           | An Industry leader with many coasters first's of it's kind designs and record breaking stats.                                           |
 | Premier Rides                  | Manufacturer           | Specializes in launch coasters and developed the first coaster to use a [LIM](https://en.wikipedia.org/wiki/Linear_induction_motor) proposition mechanism.|
-| Mack Rides                     | Manufacturer           | Manufacture in preminum steel family lauch coasters and spinning coasters. Mack only manufactures steel coasters                        |
-| Schwarzkopf                    | Manufacturer           | Defunct manufacture that was an industry leader in the late 70s to late 80s in steel looping coasters                                   |
-| Arrow Development              | Manufacturer           | Defunct manufacture that was an industry leader from the 1950s till their bankruptcy in 2002 the created the first tu                   |
-| E&F Miller                     | Manufacturer           | Defunct manufacture of small scale steel family and kid friendly coasters                                                               |
-| Wisdom Rides                   | Manufacturer           | Number of previous bookings that were cancelled by the customer prior to the current booking                                            |
-| Wiegand                        | Manufacturer           | Leader of creating Alpine style coasters for ski resorts                                                                                |
-| Zamperla                       | Manufacturer           | Large player of designing non-coaster ride like flatrides have a recent history of building family steel coasters                       |
-| D.H Morgan                     | Manufacturer           | Defunct manufacture started by son of one of the founders of Arrow Development, specialized in steel coasters and designing troden coas |
-| booking_changes                | Manufacturer           | Number of changes/amendments made to the booking from the moment the booking was entered on the PMS until the moment of check-in or can |
-| Rocky Mountain Construction    | Manufacturer           | The "Tesla" of roller coaster manufactures due to their recent widespread popularity and disruptive hybrid roller coaster models with w |
-| Maurer                         | Manufacturer           | ID of the travel agency that made the booking                                                                                           |
-| Dynamic Attractions            | Manufacturer           | ID of the company/entity that made the booking or responsible for paying the booking. ID is presented instead of designation fty reasons|
-| days_in_waiting_list           | double                 | Number of days the booking was in the waiting list before it was confirmed to the customer                                              |
-| customer_type                  | character              | Type of booking, assuming one of four categories:<br>Contract - when the booking has an allotment or other type of contract associated t|
-| adr                            | double                 | Average Daily Rate as defined by dividing the sum of all lodging transactions by the total number of staying nights                     |
-| required_car_parking_spaces    | double                 | Number of car parking spaces required by the customer                                                                                   |
-| total_of_special_requests      | double                 | Number of special requests made by the customer (e.g. twin bed or high floor                                                            |
-| reservation_status             | character              | Reservation last status, assuming one of three categories:<br>Canceled – booking was canceled by the customer;<br>Check-Out – customer  | 
-| reservation_status_date        | double                 | Date at which the last status was set. This variable can be used in conjunction with the ReservationStatus to understand when was the   |
+| Mack Rides                     | Manufacturer           | Manufacture of steel launch coasters and spinning coasters.                                                                             |
+| Schwarzkopf                    | Manufacturer           | Defunct manufacture that was an industry leader in the late 70s to late 80s in steel looping coasters.                                  |
+| Arrow Development              | Manufacturer           | Defunct manufacture that was an industry leader pioneering the first steel tubular, inverting and 200ft+ tall coaster.                  |
+| E&F Miller                     | Manufacturer           | Defunct manufacture of small scale steel family and kid friendly coasters.                                                              |
+| Wisdom Rides                   | Manufacturer           | Known for their [Gravitation](https://en.wikipedia.org/wiki/Gravitron) flat-rides, they also have produced many Dragon Wagon coasters.  |
+| Wiegand                        | Manufacturer           | Leader of creating alpine style coasters for ski resorts.                                                                               |
+| Zamperla                       | Manufacturer           | Large player of designing flat-rides have a recent history of building steel coasters.                                                  |
+| D.H Morgan                     | Manufacturer           | Defunct manufacture started by son of one of the founders of Arrow Development, specialized in steel coasters.                          |
+| Rocky Mountain Construction    | Manufacturer           | Manufacture with recent widespread popularity with their cost effective hybrid wood supports and steel roller coaster technology.       |
+| Maurer                         | Manufacturer           | Manufacture in portable steel spinning roller coasters.                                                                                 |
+| Dynamic Attractions            | Manufacturer           | Manufacture of specialized ride systems for Disney and Universal Studios.                                                               |
+| Fabbri                         | Manufacturer           | Manufacture in portable flat rides and portable spinning coasters.                                                                      |
+| Giovanola                      | Manufacturer           | Manufacturer which had a short history of manufacturing.                                                                                |
+| Allan Herschell                | Manufacturer           | Defunct manufacture of small children roller coasters.                                                                                  |
+| Vekoma                         | Manufacturer           | Manufacture known for their notorious [Boomerang coasters.](https://en.wikipedia.org/wiki/Boomerang_(roller_coaster))                   |
+| Custom Coaster International   | Manufacturer           | Defunct manufacture of wooden coasters whose staff split and formed GCI and Gravity Group.                                              | 
+| Gravity Group                  | Manufacturer           | Manufacture known for airtime focused wooden coasters however have not built a single coaster in CA.                                    |
+| Frank Prior, Fredrick Church   | Manufacturer           | Coaster Designers of many late classic wooden coasters at the beginning of the 20th century.                                            |
+| Zierer                         | Manufacturer           | Manufacture known for their [Wave-swinger](https://en.wikipedia.org/wiki/Swing_ride) flat ride   |
 
 ```{r mode, freq, iterator, functions}
 # https://stackoverflow.com/questions/8545590/find-the-most-popular-element-in-int-array
@@ -130,57 +138,125 @@ countMode <- function(catagory){
 ```
 
 
-## 1A.  General Data Comparisons 
-```{r Existant Coasters statisical breakdowns }
+## General Population 
+<Center>
+First I wanted to graph the recorded speed and height of all coasters in my data set between Southern California and Northern California to see where there is more substantial investment. 
+```{r Existant Coasters statisical breakdowns,echo=FALSE}
 
-# Length Versus Height of Southern California Coasters
+# Speed Versus Height of Southern California Coasters
 scatterPlot <- currentDataFrame %>% filter(Region == "S") %>%
-  ggplot(width = 700, height = 700,mapping = aes(x = Length, y = Height, 
+  ggplot(width = 700, height = 700,mapping = aes(x = Speed, y = Height, 
              text = paste(
              Name, " at ", Park, "\n", 
                 "Description: ", Type ,"", Model.Name, "\n",
                 "Built by", Manufacturer, " in ", Year,"\n",
-             Length, " ft long\n",
-             Height, " ft tall\n"))) + #geom_smooth(method = "lm", color = "yellow") +
+             Speed, " mph\n",
+             Height, " ft tall\n"))) +
   geom_point(aes(color = Type)) + 
-  labs(x = "Length", 
+  labs(x = "Speed", 
        y = "Height",
-       title = "Length Versus Height of SoCal Coasters") +
-  geom_hline(yintercept=0, linetype="dashed", color = "#2C528C", size=0.5) + geom_vline(xintercept=0, linetype="dashed", color = "#2C528C", size=0.5) 
+       title = "Speed Versus Height of SoCal Coasters") +
+  geom_hline(yintercept=0, linetype="dashed", color = "#000000", size=0.5) + geom_vline(xintercept=0, linetype="dashed", color = "#000000", size=0.5) 
 
 ggplotly(scatterPlot, tooltip = "text")
 
 
-# Length Versus Height of Northern California Coasters
+# Speed Versus Height of Northern California Coasters
 scatterPlot2 <- currentDataFrame %>% filter(Region == "N") %>%
-  ggplot(width = 700, height = 700,mapping = aes(x = Length, y = Height, 
+  ggplot(width = 700, height = 700,mapping = aes(x = Speed, y = Height, 
              text = paste(
              Name, " at ", Park, "\n", 
                 "Description: ", Type ,"", Model.Name, "\n",
                 "Built by", Manufacturer, " in ", Year,"\n",
-             Length, " ft long\n",
-             Height, " ft tall\n"))) + #geom_smooth(method = "lm", color = "yellow") +
+             Speed, " ft long\n",
+             Height, " ft tall\n"))) +
   geom_point(aes(color = Type)) + 
-  labs(x = "Length", 
+  labs(x = "Speed", 
        y = "Height",
-       title = "Length Versus Height of NorCal Coasters") +
-  geom_hline(yintercept=0, linetype="dashed", color = "#2C528C", size=0.5) + geom_vline(xintercept=0, linetype="dashed", color = "#2C528C", size=0.5) 
+       title = "Speed Versus Height of NorCal Coasters") +
+  geom_hline(yintercept=0, linetype="dashed", color = "#000000", size=0.5) + geom_vline(xintercept=0, linetype="dashed", color = "#000000", size=0.5) 
 
 ggplotly(scatterPlot2, tooltip = "text")
+
+
 ```
 
+<center>
+Not only does Southern California have more coasters but they are much larger with [Superman Escape](https://rcdb.com/140.htm) being the third tallest coaster in the world. Southern California also has all three state's hyper coasters. 
+</center>
 
-# 2A. The Dipper Twins 
+
+```{r Population Perctange,echo=FALSE}
+
+# Subsetting Number of Coasters between regions 
+SoCalSubset <- subset(currentDataFrame, subset=((Region == "S")))
+NorCalSubset <- subset(currentDataFrame, subset=((Region == "N")))
+
+socal <- c(length(SoCalSubset$Name))   #SoCal Population
+
+norcal <- c(length(NorCalSubset$Name)) #NorCal Population
+
+ s <- (socal/(socal+norcal)*100.0) 
+ n <- (norcal/(socal+norcal)*100.0)
+s = round(s, digits=0)
+n = round(n, digits=0)
+
+percentages <-c(s,n)
+                  
+populations <- c(socal, norcal)
+regions <- c("SoCal","NorCal")
+df = data.frame(matrix(ncol = 2, nrow = 2))
+
+#A bit unconfidential df
+colnames(df) <- regions
+rownames(df) <- populations
+
+#Pie Chart
+piePlot <- ggplot(df, aes(x = "", y = populations, fill = regions)) +
+  geom_col() +
+  coord_polar(theta = "y",start=0) +  geom_text(aes(label = percentages),
+            position = position_stack(vjust = 0.5)) + ggtitle("California Population Percentage")
+
+piePlot
+
+
+```
+
+<center>
+Southern California without a doubt has more coasters but will later show that they do not lack quality 
+</center>
+## Brief Historical Moments
+*The California Dippers*
 Roller Coasters grew ever so popular around the turn of the Century in the US. The two classic Giant Dippers are the two California Classics both Designed by the legendary Frank Prior and Fredrick Church. However many disappeared post 1929 until a renissance occured beginning in the 1950s
 <center>
 ![](https://blog.beachboardwalk.com/sites/bw-news/files/ndmblog028_img005_1925_GiantDipper_001.jpg){width=98%}
-Santa Cruz's Giant Dipper features more of an out and back style layout with airtime hills
-![](https://www.youtube.com/watch?v=ZmZvKYtc7g0){width=50%}
+Santa Cruz's Giant Dipper features more of an out and back style layout with airtime hills. It is my favorite of the two especially this innocent looking  drop I call ["The Ejector death hill"](https://youtu.be/ZmZvKYtc7g0?t=130)
+![](https://www.youtube.com/watch?v=ZmZvKYtc7g0){width=90%}
 ![](https://1.bp.blogspot.com/-pXD0dNvIuEI/Xv-J4nV9kwI/AAAAAAAAqTY/Jc7L1QXVWE88mrfDBF3_kLP6_Dzl9OWbgCLcBGAsYHQ/s640/8pq4w0w4myi21.jpg)
        San Diego's Giant Dipper Belmont Park focuses more on lateral forces with low banked curves and drops in a twister style layout
 ![](https://www.youtube.com/watch?v=HDOFjwnbIws){width=50%}
 
 </center>
+
+```{r The Dippers}
+# Speed Versus Height of the Dippers
+Targets <- c("Belmont Giant Dipper","Santa Cruz Giant Dipper")
+scatterPlot <- currentDataFrame %>% filter(Name %in% Targets)  %>%
+  ggplot(width = 200, height = 200,mapping = aes(x = Speed, y = Height, 
+             text = paste(
+             Name, " at ", Park, "\n", 
+                "Description: ", Type ,"", Model.Name, "\n",
+                "Built by", Manufacturer, " in ", Year,"\n",
+             Speed, " mph\n",
+             Height, " ft tall\n"))) +
+  geom_point(aes(color = Name)) + 
+  labs(x = "Speed", 
+       y = "Height",
+       title = "Speed Versus Height of the Dippers") +
+  geom_hline(yintercept=0, linetype="dashed", color = "#000000", size=0.5) + geom_vline(xintercept=0, linetype="dashed", color = "#000000", size=0.5) 
+
+ggplotly(scatterPlot, tooltip = "text")
+```
 
 
 # 2A. The Disney Innovation and beginning of the "coaster wars"  
@@ -216,7 +292,7 @@ Turn of the Century* now known as the [Demon](https://rcdb.com/76.htm)
 
 
 ## 2A. Before 1980
-```{r Before 1980 Stats}
+```{r Before 1980 Stats, ehco=FALSE}
 
 #Speed Historgram
 filteredDataFrame <- currentDataFrame %>% filter(Year <= 1980)
@@ -266,7 +342,7 @@ ggplotly(barplot, tooltip = "text")
 
 ## 3A. After 1980
 
-```{r After 1980 Stats}
+```{r After 1980 Stats, ehco=FALSE}
 # Speed Historgram
 filteredDataFrame <- currentDataFrame %>% filter(Year >= 1980)
 barplot <- ggplot(data = filteredDataFrame, width = 700, height = 700,mapping = aes(x = Year, y = Speed, 
@@ -313,7 +389,7 @@ ggplotly(barplot, tooltip = "text")
 ```
 
 ## 2B. Comparing Significant Coaster after 1980
-```{r Focus on Coasters After 1980}
+```{r Focus on Coasters After 1980,, ehco=FALSE}
 # Coasters over 140ft (>1980)
 filteredDataFrame <- currentDataFrame %>% filter(Height >= 140 & Year >= 1980)
 barplot <- ggplot(data = filteredDataFrame, width = 700, height = 700,mapping = aes(x = Year, y = Height, 
@@ -351,7 +427,7 @@ ggplotly(barplot, tooltip = "text")
 
 
 ## 1C. Inversion Histogram
-```{r Inversion historgram}
+```{r Inversion historgram, ehco=FALSE}
 c_inversion<- c(currentDataFrame$Num.of.Inversions)
 
 c_names <- c(currentDataFrame$Name)
@@ -369,7 +445,7 @@ currentDataFrame %>%
 
 
 ## 2C. Above 200ft in Coaster Histogram
-```{r height historgram over 200}
+```{r height historgram over 200, ehco=FALSE}
 c_year <- c(currentDataFrame$Year)
 c_height <- c(currentDataFrame$Height)
 c_types <- c(currentDataFrame$Type)
@@ -391,7 +467,7 @@ currentDataFrame %>%
 
 
 ## 1D. Popular Models
-```{r Popularity}
+```{r Popularity, ehco=FALSE}
 
 df <- currentDataFrame %>% select(Manufacturer, Model.Name)
 manufactures = c(df$Manufacturer)
@@ -428,7 +504,7 @@ fig
 ```
 
 ## 6. Average Height From Each Manufacture
-```{r Avg Height for each Manufacture}
+```{r Avg Height for each Manufacture, ehco=FALSE}
 
 df <- currentDataFrame %>% select(Manufacturer, Height)
 ManufacturesNames = length(listOfMan) + 1
@@ -452,7 +528,7 @@ fig
 ```
 
 ## 7. Average Speed from each Manufacture
-```{r Avg Speed for each Manufacture}
+```{r Avg Speed for each Manufacture, ehco=FALSE}
 
 df <- currentDataFrame %>% select(Manufacturer, Speed)
 ManufacturesNames = length(listOfMan) + 1
@@ -476,7 +552,7 @@ fig
 ```
 
 ## 8. Popular Models in different eras
-```{r Popular Models within eras}
+```{r Popular Models within eras, ehco=FALSE}
 
 #1920-1960
 df <- currentDataFrame %>% select(Year,Manufacturer, Model.Name) %>% filter(Year >= 1920 & Year <= 1960)
@@ -592,7 +668,7 @@ fig
 ```
 
 ## 9. parks with the most coasters
-```{r Parks with the most coasters}
+```{r Parks with the most coasters, ehco=FALSE}
 
 ```
 

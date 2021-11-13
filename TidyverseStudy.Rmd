@@ -30,26 +30,24 @@ currentDataFrame <- read.csv(rawDataFrame)
 currentDataFrame
 ```
 
-## Intro:
-Ever since I was tall enough to go on a thrilling roller coaster, they have been a relatively interesting hobby for many reasons besides the wonderful rush of adrenaline. Roller Coasters are great models of reality such as mechanical engineering, control theory and have various characteristics for statistical analysis. In high school I operated a few large scale coasters at my home regional park so I have some insight from an operational perspective. In this report I choose to focus on roller coasters within the state of California because it is currently the state with the most roller coasters about 93 and have ridden all of the major coasters outside of Sea World.Some stats were easier to find such as height, speed, inversion count, manufacture, and manufacture model name/type. However other figures such as capacity and ride duration were a bit inconsistent between sources and other mechanical factors like temperature.
+### Intro
+Ever since I was tall enough to go on a thrilling roller coaster, they have been a relatively interesting hobby for many reasons besides the wonderful rush of adrenaline. Roller Coasters are great models of reality such as mechanical engineering, control theory and have various characteristics for statistical analysis. In high school I operated a few large scale coasters at my home regional park so I have some insight from an operational perspective. In this report I choose to focus on roller coasters within the state of California because it is currently the state with the most roller coasters about 93 and have ridden all of the major coasters outside of Sea World. Some stats were easier to find such as height, speed, inversion count, manufacture, and manufacture model name/type. However other figures such as capacity and ride duration were a bit inconsistent between sources and other mechanical factors like temperature. This is much more of a "Fun" project then a scientific analysis of roller coasters since the subject is quite subjective 
 
-## Study Information
-Study:
-Since this assignment requires the use of Tidyverse I choose some questions to answer such a 
+### Data Resources
+I reference these two websites frequently for information:
+|[RCDB](https://rcdb.com)  |
+|[Ultimate Coaster](https://www.ultimaterollercoaster.com) |
 
-## Purpose
-Purpose:
-Since I am a big fan of many of these roller coasters, I want to see how they compare stat wise
 
-## Questions 
+### Section
 |   |                                                       |
 |:--|:------------------------------------------------------| 
 |A. | General Stats Compared                                |
-|B. | Brief History and Notable Trends                      |
-|C. | Favorites Compared                                   |
+|B. | Brief Historical Moments                              |
+|C. | Favorites Compared                                    |
 
 
-## Data Dictionary
+### Data Dictionary
 | Term                           | Type                   | description                                                                                                                             |
 |:-------------------------------|:-----------------------|:----------------------------------------------------------------------------------------------------------------------------------------|
 | RCDB                           | [Database](https://rcdb.com) | Website with a large database of coasters stats                                                                                   |
@@ -141,7 +139,7 @@ countMode <- function(catagory){
 ## General Population 
 <Center>
 First I wanted to graph the recorded speed and height of all coasters in my data set between Southern California and Northern California to see where there is more substantial investment. 
-```{r Existant Coasters statisical breakdowns,echo=FALSE}
+```{r Existant Coasters statisical breakdowns}
 
 # Speed Versus Height of Southern California Coasters
 scatterPlot <- currentDataFrame %>% filter(Region == "S") %>%
@@ -186,7 +184,7 @@ Not only does Southern California have more coasters but they are much larger wi
 </center>
 
 
-```{r Population Perctange,echo=FALSE}
+```{r Population Perctange}
 
 # Subsetting Number of Coasters between regions 
 SoCalSubset <- subset(currentDataFrame, subset=((Region == "S")))
@@ -226,17 +224,21 @@ piePlot
 Southern California without a doubt has more coasters but will later show that they do not lack quality 
 </center>
 ## Brief Historical Moments
-*The California Dippers*
-Roller Coasters grew ever so popular around the turn of the Century in the US. The two classic Giant Dippers are the two California Classics both Designed by the legendary Frank Prior and Fredrick Church. However many disappeared post 1929 until a renissance occured beginning in the 1950s
+### The Santa Cruz Dipper 1924
+Roller Coasters grew ever so popular around the turn of the Century in the US. The two classic Giant Dippers are the two California Classics both Designed by the legendary Frank Prior and Fredrick Church. However many disappeared post 1929 until a renaissance occurred beginning in the 1950s
 <center>
 ![](https://blog.beachboardwalk.com/sites/bw-news/files/ndmblog028_img005_1925_GiantDipper_001.jpg){width=98%}
-Santa Cruz's Giant Dipper features more of an out and back style layout with airtime hills. It is my favorite of the two especially this innocent looking  drop I call ["The Ejector death hill"](https://youtu.be/ZmZvKYtc7g0?t=130)
+Santa Cruz's Giant Dipper features more of an out and back style layout with airtime hills. My favorite highlight especially this innocent looking drop I call ["The Ejector Hill"](https://youtu.be/ZmZvKYtc7g0?t=130)
+![](./data/EjectorHill.png){width=60%}
+The steepness of this hill gives an incredible pop of airtime.   
 ![](https://www.youtube.com/watch?v=ZmZvKYtc7g0){width=90%}
-![](https://1.bp.blogspot.com/-pXD0dNvIuEI/Xv-J4nV9kwI/AAAAAAAAqTY/Jc7L1QXVWE88mrfDBF3_kLP6_Dzl9OWbgCLcBGAsYHQ/s640/8pq4w0w4myi21.jpg)
-       San Diego's Giant Dipper Belmont Park focuses more on lateral forces with low banked curves and drops in a twister style layout
-![](https://www.youtube.com/watch?v=HDOFjwnbIws){width=50%}
-
 </center>
+### The San Diego Dipper 1925
+![](https://1.bp.blogspot.com/-pXD0dNvIuEI/Xv-J4nV9kwI/AAAAAAAAqTY/Jc7L1QXVWE88mrfDBF3_kLP6_Dzl9OWbgCLcBGAsYHQ/s640/8pq4w0w4myi21.jpg){width=110%}
+Also built by Frank Prior and Fredrick Church, San Diego's Giant Dipper Belmont Park focuses more on lateral forces with low banked curves and drops in a twister style layout
+![](https://www.youtube.com/watch?v=HDOFjwnbIws){width=90%}
+
+### The Dippers Compared
 
 ```{r The Dippers}
 # Speed Versus Height of the Dippers
@@ -257,42 +259,78 @@ scatterPlot <- currentDataFrame %>% filter(Name %in% Targets)  %>%
 
 ggplotly(scatterPlot, tooltip = "text")
 ```
+The two coasters are extremely similar stats wise but have very different ride layouts 
+</center>
 
-
-# 2A. The Disney Innovation and beginning of the "coaster wars"  
-Inspired from his last film Third Man on the Mountain, Walt Disney had the ambition to build first tubular steel track roller coasters in the form of the Matterhorn Bobsleds. Manufactured by Arrow Development, this contractor would go on to design many early Disney dark ride systems and become a [dominante](https://www.youtube.com/watch?v=rGKgVxx5Wu8) player in the roller coaster industry
+### The Disney Innovation 
+Inspired from his last film Third Man on the Mountain, Walt Disney had the ambition to build first tubular steel track roller coasters in the form of the Matterhorn Bobsleds. Manufactured by Arrow Development, this contractor would go on to design many early Disney dark ride systems and become a [dominante](https://www.youtube.com/watch?v=rGKgVxx5Wu8) player in the roller coaster industry. The use of tubular steel running rails are is still the most common way coaster track is designed.
 <center>
-![](https://lh3.googleusercontent.com/proxy/ESIWuGHHPxSYwHfNqJyZKd09ID98kc71lU_QPP-P1Vw3X8JZkTc3TdPzr7_w8iVi_QMAePQGHS04ePuOES2nMn1nZcji1t6qyva7Fcgqq2WCG-L1saj7EMPQUpPgp8o){width=55%}
+![](http://2.bp.blogspot.com/-YHu7X6pcpGA/Tlp7czLTphI/AAAAAAAAAOA/Rm1qkCpSEO4/s320/matterhornbobsled.jpg){width=45%}
 ![](https://upload.wikimedia.org/wikipedia/commons/thumb/4/4c/Matterhorndisney.jpg/800px-Matterhorndisney.jpg){width=40%}
-Disney would purchase two variants of Arrow's dual track coaster system in 1959 for Disneyland and 1975 for Walt Disney World
-Matterhorn POV
-![](https://www.youtube.com/watch?v=6VGNdjgFKTA){width=50%}
-Matterhorn POV
-Space Mountain Walt Disney World POV
-![](https://www.youtube.com/watch?v=q1kokrfOS_Q){width=50%}
-![](https://1.bp.blogspot.com/-pXD0dNvIuEI/Xv-J4nV9kwI/AAAAAAAAqTY/Jc7L1QXVWE88mrfDBF3_kLP6_Dzl9OWbgCLcBGAsYHQ/s640/8pq4w0w4myi21.jpg)
-
-# 3A. Explosive popularity of Arrow Development 
+![](https://www.youtube.com/watch?v=6VGNdjgFKTA){width=90%}
+</center>
+### Thrown For A Loop  
 1975 not only was a big year with the opening of space mountain but  down the street from Disneyland, Knott's Berry Farm would debut Arrow's corkscrew prototype which was the world's first successful inverting roller coaster 
-![](http://www.itsasmallworldblog.com/uploads/5/8/3/9/5839250/screenshot-2020-09-17-22-26-00-2_orig.png){width=50%}
-Knott's Corkscrew at it's current Idaho location
-![](https://www.youtube.com/watch?v=3NbQoSMx0d0){width=40%}
+![](http://www.itsasmallworldblog.com/uploads/5/8/3/9/5839250/screenshot-2020-09-17-22-26-00-2_orig.png){width=110%}
+Knott's Corkscrew was relocated to Silverwood Idaho still stands as living history
 
-# Revolutionary Tricentennial 
+![](https://www.youtube.com/watch?v=3NbQoSMx0d0){width=90%}
 The Northern California rival, Marriott Great America would open Turn of the Century another Arrow Corkscrew with a custom out and back layout.
 ![](https://www.themeparkreview.com/parks/pimages/Californias_Great_America/Turn_of_the_Century/toc002.jpg)
-German mechanical engineer Anton Schwarzkopf, would debut 
-Turn of the Century* now known as the [Demon](https://rcdb.com/76.htm)
+Turn of the Century* now known as the [Demon](https://rcdb.com/76.htm) was the second Arrow Corkscrew variant.
 ![](https://www.youtube.com/watch?v=YJod9tuFYl4)
-![](https://i0.wp.com/www.greatamericaparks.com/wp-content/uploads/2018/03/demon-130802-0001.jpg?resize=2000%2C1200&ssl=1)
+The coaster for the 1980 season scrap the airtime hills in favor of vertical loops, a light tunnel and themed rock-work.
+![](https://i0.wp.com/www.greatamericaparks.com/wp-content/uploads/2018/03/demon-130802-0001.jpg?resize=2000%2C1200&ssl=1){width=90%}
+That same year Anton Schwarzkopf would build the Revolution for Six Flags Magic Mountain and feature the first steel vertical loop.
 ![](http://www.thecoasterguy.com/wordpress/wp-content/gallery/revolution/sfmm_revolution_51.jpg)
+This coaster marked the beginning of Magic Mountain dominating the coaster market in California with many record breakers.
 ![](https://i.pinimg.com/originals/66/f9/62/66f962f53b0fb785a205aea851127fa2.jpg)
 ![](https://www.youtube.com/watch?v=aMDAoaCyB1c)
 </center>
 
+### Demon vs. Revolution
+```{r Inversion Study}
+# Inversions Versus Model.Name
+Targets <- c("Demon","Revolution")
+barPlot <- currentDataFrame %>% filter(Name %in% Targets)  %>%
+  ggplot(width = 200, height = 200,mapping = aes(x = Manufacturer, y = Num.of.Inversions, 
+             text = paste(
+             Name, " at ", Park, "\n", 
+                "Description: ", Type ,"", Model.Name, "\n",
+                "Built by", Manufacturer, " in ", Year,"\n",
+             Speed, " mph\n",
+             Height, " ft tall\n"))) +
+  geom_bar(stat="identity", fill= "blue", position=position_dodge()) + 
+  labs(x = "Manufacturer", 
+       y = "Inversions #",
+       title = "Inversion Comparrison") +
+  geom_hline(yintercept=0, linetype="dashed", color = "#000000", size=0.5) + geom_vline(xintercept=0, linetype="dashed", color = "#000000", size=0.5) 
 
-## 2A. Before 1980
-```{r Before 1980 Stats, ehco=FALSE}
+ggplotly(barPlot, tooltip = "text")
+```
+
+```{r Height and Speed}
+# Speed Versus Height
+Targets <- c("Demon","Revolution")
+scatterPlot <- currentDataFrame %>% filter(Name %in% Targets)  %>%
+  ggplot(width = 200, height = 200,mapping = aes(x = Speed, y = Height, 
+             text = paste(
+             Name, " at ", Park, "\n", 
+                "Description: ", Type ,"", Model.Name, "\n",
+                "Built by", Manufacturer, " in ", Year,"\n",
+             Speed, " mph\n",
+             Height, " ft tall\n"))) +
+  geom_point(aes(color = Name)) + 
+  labs(x = "Speed", 
+       y = "Height",
+       title = "Speed Versus Height") +
+  geom_hline(yintercept=0, linetype="dashed", color = "#000000", size=0.5) + geom_vline(xintercept=0, linetype="dashed", color = "#000000", size=0.5) 
+
+ggplotly(scatterPlot, tooltip = "text")
+```
+
+### Stats Before 1980
+```{r Before 1980 Stats}
 
 #Speed Historgram
 filteredDataFrame <- currentDataFrame %>% filter(Year <= 1980)
@@ -337,12 +375,18 @@ ggplotly(barplot, tooltip = "text")
 
 ```
 
+## After 1980
+Arrow and Schwarzkopf would continue to provide new and innovative coasters to the parks in California. 
+![](https://upload.wikimedia.org/wikipedia/commons/b/b6/Viper_queue_view.jpg)
+The 1990 Viper opened with  the record for the most inversions on any coaster
+![](https://upload.wikimedia.org/wikipedia/commons/thumb/2/24/Riddlers_Revenge_13.jpg/800px-Riddlers_Revenge_13.jpg)
 <center>
-
-
-## 3A. After 1980
-
-```{r After 1980 Stats, ehco=FALSE}
+ By the 80's steel coasters were the norm with many of them focusing on inversion count as evident by 
+</center>
+![](https://youtu.be/410y0gGpj9I?t=56)
+![](https://sf-static.sixflags.com/wp-content/uploads/2020/04/sfmm_superman_escape_from_krypton_1440x1533-1-768x818.jpg)
+![](https://youtu.be/rfi7PAQj7jg?t=25)
+```{r After 1980 Stats}
 # Speed Historgram
 filteredDataFrame <- currentDataFrame %>% filter(Year >= 1980)
 barplot <- ggplot(data = filteredDataFrame, width = 700, height = 700,mapping = aes(x = Year, y = Speed, 
@@ -388,8 +432,8 @@ ggplotly(barplot, tooltip = "text")
   ggplotly(barplot, tooltip = "text")
 ```
 
-## 2B. Comparing Significant Coaster after 1980
-```{r Focus on Coasters After 1980,, ehco=FALSE}
+## Comparing Significant Coaster after 1980
+```{r Focus on Coasters After 1980}
 # Coasters over 140ft (>1980)
 filteredDataFrame <- currentDataFrame %>% filter(Height >= 140 & Year >= 1980)
 barplot <- ggplot(data = filteredDataFrame, width = 700, height = 700,mapping = aes(x = Year, y = Height, 
@@ -426,8 +470,8 @@ ggplotly(barplot, tooltip = "text")
 
 
 
-## 1C. Inversion Histogram
-```{r Inversion historgram, ehco=FALSE}
+## Inversion Histogram
+```{r Inversion historgram}
 c_inversion<- c(currentDataFrame$Num.of.Inversions)
 
 c_names <- c(currentDataFrame$Name)
@@ -444,8 +488,8 @@ currentDataFrame %>%
 ```
 
 
-## 2C. Above 200ft in Coaster Histogram
-```{r height historgram over 200, ehco=FALSE}
+## Above 200ft in Coaster Histogram
+```{r height historgram over 200}
 c_year <- c(currentDataFrame$Year)
 c_height <- c(currentDataFrame$Height)
 c_types <- c(currentDataFrame$Type)
@@ -466,8 +510,8 @@ currentDataFrame %>%
 ```
 
 
-## 1D. Popular Models
-```{r Popularity, ehco=FALSE}
+## Popular Models
+```{r Popularity}
 
 df <- currentDataFrame %>% select(Manufacturer, Model.Name)
 manufactures = c(df$Manufacturer)
@@ -503,8 +547,8 @@ fig
 
 ```
 
-## 6. Average Height From Each Manufacture
-```{r Avg Height for each Manufacture, ehco=FALSE}
+## Average Height From Each Manufacture
+```{r Avg Height for each Manufacture}
 
 df <- currentDataFrame %>% select(Manufacturer, Height)
 ManufacturesNames = length(listOfMan) + 1
@@ -527,8 +571,8 @@ fig <- plot_ly(x = names, y = heights, name = ~listOfMan, type = "bar", color = 
 fig 
 ```
 
-## 7. Average Speed from each Manufacture
-```{r Avg Speed for each Manufacture, ehco=FALSE}
+## Average Speed from each Manufacture
+```{r Avg Speed for each Manufacture}
 
 df <- currentDataFrame %>% select(Manufacturer, Speed)
 ManufacturesNames = length(listOfMan) + 1
@@ -551,8 +595,8 @@ fig <- plot_ly(x = names, y = speeds, name = ~listOfMan, type = "bar", color = ~
 fig 
 ```
 
-## 8. Popular Models in different eras
-```{r Popular Models within eras, ehco=FALSE}
+## Popular Models in different eras
+```{r Popular Models within eras}
 
 #1920-1960
 df <- currentDataFrame %>% select(Year,Manufacturer, Model.Name) %>% filter(Year >= 1920 & Year <= 1960)
@@ -667,59 +711,59 @@ fig
 
 ```
 
-## 9. parks with the most coasters
-```{r Parks with the most coasters, ehco=FALSE}
+## parks with the most coasters
+```{r Parks with the most coasters}
 
 ```
 
 
 
-## 10. My ten favorite coasters compared
+## My ten favorite coasters compared
 
 <center>
 
-# 10. B&M's Old School Invert: Flight Deck 
+### 10. B&M's Old School Invert: Flight Deck 
 ![](https://siliconvalleycentral.files.wordpress.com/2014/04/flight-deck-red11.jpg){width=70%}
 ![](https://www.youtube.com/watch?v=eS3ZAMVI4-Q&feature=emb_logo)
 
 
-# 9. Dynamic Structure's: Space Mountain 
+### 9. Dynamic Structure's: Space Mountain 
 ![](https://www.themeparktribune.com/wp-content/uploads/2020/09/Space-Mountain-Disneyland-Disney.jpg){width=80%}
 ![](https://www.youtube.com/watch?v=e-Z0kd2l88Y)
 
-# 8. Arrow's Remaining and Largest Multi-Looper: Viper
+### 8. Arrow's Remaining and Largest Multi-Looper: Viper
 ![](https://www.ultimaterollercoaster.com/coasters/pictures/viper/img/six-flags-magic-mountain-viper_8781.jpg)
 ![](https://www.youtube.com/watch?v=PXRVqSmXKO0)
 
 
-# 7. Some of CCI's Best Work: Ghostrider 
+### 7. Some of CCI's Best Work: Ghostrider 
 ![](https://www.ocregister.com/wp-content/uploads/migration/ntc/ntc3rq-b88490469z.120150819074525000gmfbga38.10.jpg){width=80%}
 ![](https://www.youtube.com/watch?v=aU3ZF0_Shv4&t=93s)
 
 
-# 6. GCI Masterpiece: Gold Striker
+### 6. GCI Masterpiece: Gold Striker
 ![](https://i.pinimg.com/originals/34/bc/c0/34bcc0f277e29aed66d60911669ae1af.jpg){width=80%}
 ![](https://www.youtube.com/watch?v=wRjMvK61tes)
 
 
-# 5. B&M's Ambitious Flying Coaster: Tatsu 
+### 5. B&M's Ambitious Flying Coaster: Tatsu 
 ![](https://coastercritic.com/wp-content/uploads/2009/09/tatsu-magic-mountain-layout-700x400.jpg)
 ![](https://www.youtube.com/watch?v=ciSo2vhcmQE&t=21s)
 
 
-# 4. Intamin's Hydraulic Protoype: Xcelerator 
+### 4. Intamin's Hydraulic Protoype: Xcelerator 
 ![](https://i.pinimg.com/originals/9f/39/30/9f3930eaa429250b36bd9e17d472c597.jpg)
 ![](https://www.youtube.com/watch?v=jrtZKhGOQYo)
 
 
-# 3. Arrow's 4th Dimension Protype: X2 
+### 3. Arrow's 4th Dimension Protype: X2 
 ![](https://i.pinimg.com/originals/53/d7/fe/53d7fec4689cc6c1a7a5b6206cf06abf.jpg){width=90%}
 ![](https://www.youtube.com/watch?v=W20Hc7YELmk)
 
 
 
 
-# 2. RMC's Protype Single Rail: Railblazer
+### 2. RMC's Protype Single Rail: Railblazer
 
 ![](http://www.negative-g.com/californias-great-america/2019/californias-great-america-2019-railblazer-30.jpg)
 ![](https://www.youtube.com/watch?v=k2OhRWz2VY4&t=1s)
@@ -727,14 +771,12 @@ fig
 
 
 
-# 1. RMC's Dualing IBOX: Twisted Colossus  
+### 1. RMC's Dualing IBOX: Twisted Colossus  
 ![](https://www.dailynews.com/wp-content/uploads/migration/2015/201505/NEWS_150529952_AR_0_OQZBWKLMXOLO.jpg){width=90%}
 ![](https://www.youtube.com/watch?v=JIcQOV6azSI)
 
 
-
-
-#Favorites by the numbers 
+### Favorites by the numbers 
 ```{r Favorites}
 # Speed Historgram
 Targets <- c("Twisted Colossus", "Viper", "Space Mountain", "GhostRider", "Gold Striker", "Flight Deck", "Railblazer", "X2", "Xcelerator", "Tatsu")
